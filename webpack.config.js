@@ -93,6 +93,6 @@ module.exports = {
     compress: true,
     disableHostCheck: true,
     contentBase: [path.join(__dirname, 'dist'), path.join(__dirname, 'dapps')],
-    port: 5000
+    port: 5000,
   }
 }

@@ -1,10 +1,9 @@
 import { mnemonicToEntropy } from "bip39";
 import Web3 from "web3";
 import type { Account } from "web3-core";
-
 import CirclesCore from '@circles/core';
 import BN from "bn.js";
-
+// import CirclesCore from '../circles';
 const ETHEREUM_NODE_WS = "wss://xdai.poanetwork.dev/wss";
 const provider = new Web3.providers.WebsocketProvider(
   ETHEREUM_NODE_WS,
@@ -91,7 +90,7 @@ export class CirclesWrapper {
   ) {
     let canSendToC = web3.utils.toChecksumAddress(trustGivingSafeAddress);
     let userC = web3.utils.toChecksumAddress(trustReceivingSafeAddress);
-
+    debugger;
     const untrusted = await core.trust.removeConnection(trustGivingSafeOwner, {
       canSendTo: canSendToC,
       user: userC,
@@ -186,4 +185,5 @@ export class CirclesWrapper {
     });
     return activities
   }
+
 }
