@@ -12,7 +12,7 @@
     let current = ViewRegistry.getByName("Index");
 
     async function show(ctx) {
-        console.log("CONTEXT",ctx);
+        console.log("CONTEXT", ctx);
 
         current = ViewRegistry.getByName(ctx.path.replace(/\//g, ""));
         // let page = ctx.query["page"];
@@ -25,12 +25,12 @@
         //     page
         // );
     }
- let base = local ? "/#!/" : "/ipns/bafzbeieojoxxxqmz6z6yt656msrjmpn6hh4ig2ppxrzxinhjm3njmiy5qq/#!/";
-    page.base(base); 
+    let base = local
+        ? "/#!/"
+        : "/ipns/bafzbeieojoxxxqmz6z6yt656msrjmpn6hh4ig2ppxrzxinhjm3njmiy5qq/#!/";
+    page.base(base);
     page("*", show);
-    page({ popstate: true, hashbang:true });
-
-   
+    page({ popstate: true, hashbang: true });
 </script>
 
 <style global>

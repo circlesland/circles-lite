@@ -10,6 +10,7 @@ import Error from "../app/views/Error.svelte";
 export class ViewRegistry {
     private static registry = {
         "login": { view: Login, title: "circles Login" },
+        "": { view: Index, title: "circles Index" },
         "index": { view: Index, title: "circles Index" },
         "gettrust": { view: GetTrust, title: "circles" },
         "register": { view: Register, title: "circles Index" },
