@@ -1,0 +1,35 @@
+<script lang="ts">
+    const local =
+        window.location.hostname == "localhost" ||
+        window.location.hostname == "127.0.0.1";
+    const css = local ? "bundle.css" : "https://ipfs.io/ipns/bafzbeieojoxxxqmz6z6yt656msrjmpn6hh4ig2ppxrzxinhjm3njmiy5qq/webpack/bundle.js";
+</script>
+
+<style global>
+    @import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,300&family=Josefin+Sans:wght@700&family=Nunito+Sans:wght@400&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Aclonica&display=swap");
+
+    @tailwind base;
+    @tailwind utilities;
+    @tailwind components;
+
+    html,
+    body {
+        height: 100%;
+        overflow: hidden;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        @apply font-sans;
+    }
+</style>
+
+<svelte:head>
+    <link rel="stylesheet" href={css} />
+</svelte:head>
+
+works

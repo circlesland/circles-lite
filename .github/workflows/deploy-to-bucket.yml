@@ -1,0 +1,46 @@
+name: "dev.omo.earth"
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy circles lite:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm install
+    - run: npm run build --if-present
+      env:
+        Environment: production
+    - name: remove old index.html
+      run: |
+        rm dist/index.html
+        mv dist/index.prod.html dist/index.html
+    - name: push action
+      id: bucket
+      uses: textileio/github-action-buckets@v20
+      with:
+        key: ${{ secrets.TEXTILE_ACCOUNT_KEY }}
+        secret: ${{ secrets.TEXTILE_ACCOUNT_SECRET }}
+        bucket: 'circles-lite'
+        thread: 'bafkwwtiq7xhtdsxp7sgolguubzwc2b54m7wcvmzwujbutwxhfptofzy'
+        path: 'dist'
+    - run: echo "bucket - ${{ steps.bucket.outputs.key }}"
+    - run: echo "ipfs - ${{ steps.bucket.outputs.ipfs }}"
+    - run: echo "ipfs link - ${{ steps.bucket.outputs.ipfsUrl }}"
+    - run: echo "ipns - ${{ steps.bucket.outputs.ipns }}"
+    - run: echo "ipns link - ${{ steps.bucket.outputs.ipnsUrl }}"
+    - run: echo "hub - ${{ steps.bucket.outputs.hub }}"
+    - run: echo "www - ${{ steps.bucket.outputs.www }}"
