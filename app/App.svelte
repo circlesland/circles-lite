@@ -5,16 +5,16 @@
     const local =
         window.location.hostname == "localhost" ||
         window.location.hostname == "127.0.0.1";
-    const css = local
-        ? "bundle.css"
-        : "https://ipfs.io/ipns/bafzbeieojoxxxqmz6z6yt656msrjmpn6hh4ig2ppxrzxinhjm3njmiy5qq/webpack/bundle.js";
+    // const css = local
+    //     ? "bundle.css"
+    //     : "https://ipfs.io/ipns/bafzbeieojoxxxqmz6z6yt656msrjmpn6hh4ig2ppxrzxinhjm3njmiy5qq/webpack/bundle.js";
 
     let current = ViewRegistry.getByName("Index");
 
     async function show(ctx) {
+        console.log("CONTEXT",ctx);
 
         current = ViewRegistry.getByName(ctx.path.replace(/\//g, ""));
-        console.log(ctx);
         // let page = ctx.query["page"];
         // if (!page) {
         //     page = "index";
@@ -25,8 +25,8 @@
         //     page
         // );
     }
-
-    page.base("/#!") 
+ let base = local ? "/#!/" : "/ipns/bafzbeieojoxxxqmz6z6yt656msrjmpn6hh4ig2ppxrzxinhjm3njmiy5qq/#!/";
+    page.base(base); 
     page("*", show);
     page({ popstate: true, hashbang:true });
 
@@ -58,6 +58,6 @@
 
 <svelte:head>
     <title>{current.title}</title>
-    <link rel="stylesheet" href={css} />
+    <link rel="stylesheet" href="bundle.css" />
 </svelte:head>
 <svelte:component this={current.view} />

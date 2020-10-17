@@ -62,7 +62,18 @@ module.exports = {
     // new CleanWebpackPlugin(['dist/*']) for < v2 versions of CleanWebpackPlugin
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Caching',
+      inject: false,
+      templateContent: ({htmlWebpackPlugin}) => `
+        <html>
+          <head>
+            ${htmlWebpackPlugin.tags.headTags}
+          </head>
+          <body>
+            <h1>Hello World</h1>
+            ${htmlWebpackPlugin.tags.bodyTags}
+          </body>
+        </html>
+      `
     }),
     new ExtractTextPlugin('[name].css', {
       disable: process.env.NODE_ENV === 'development',
