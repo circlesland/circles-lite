@@ -20,6 +20,18 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Make envfile
+      uses: SpicyPizza/create-envfile@v1
+      with:
+        HUB_ADDRESS: ${{ secrets.HUB_ADDRESS }},
+        PROXY_FACTORY_ADDRESS: ${{ secrets.PROXY_FACTORY_ADDRESS }},
+        SAFE_MASTER_ADDRESS: ${{ secrets.SAFE_MASTER_ADDRESS }},
+        API_SERVICE_ENDPOINT: ${{ secrets.API_SERVICE_ENDPOINT }},
+        GRAPH_NODE_ENDPOINT: ${{ secrets.GRAPH_NODE_ENDPOINT }},
+        RELAY_SERVICE_ENDPOINT: ${{ secrets.RELAY_SERVICE_ENDPOINT }},
+        SUBGRAPH_NAME: ${{ secrets.SUBGRAPH_NAME }},
+        THE_GRAPH: ${{ secrets.THE_GRAPH }},
+        
     - run: npm install
     - run: npm run build --if-present
       env:
