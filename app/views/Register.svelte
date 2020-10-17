@@ -2,6 +2,7 @@
     import {navigateTo} from "../../kernel/viewRegistry"
 </script>
 
+<h1 class="text-primary text-3xl font-bold pb-2">Register</h1>
 <div class="col sm:w-1/2">
     <p class="text-lg text-primary mb-4">Your new GnosisSafe Address: <br>0xai7s6drtf8aubwl3diugasdo8fuga329</p>
     <div class="box border rounded flex flex-col shadow bg-white">

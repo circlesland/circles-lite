@@ -63,4 +63,10 @@
     <title>{current.title}</title>
     <link rel="stylesheet" href="bundle.css" />
 </svelte:head>
+<div class="mb-8 pb-4 border-b border-gray-400 text-sm"><p class="text-red-400">Please note: The Circles Lite Wallet is early alpha, use at your own risk!</p>
+<a href="https://github.com/omoearth/circles-lite/issues">
+<button class="bg-red-400 text-white">Github - Feedback</button></a><a href="https://t.me/omoearth">
+<button class="bg-red-400 text-white">Telegram</button></a>
+<a href="https://twitter.com/OmoEarth"><button class="bg-red-400 text-white">Twitter</button></a></div>
+
 <svelte:component this={current.view} />

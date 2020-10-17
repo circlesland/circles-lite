@@ -20,6 +20,7 @@
     }
 </style>
 
+<h1 class="text-primary text-3xl font-bold pb-2">Safe</h1>
 <p class="text-6xl  text-primary">Balance: 45.00 CRC</p>
 <p class="text-xl">Your Safe address: 0x45678908786asdfiouais765sdiushdfis</p>
 

@@ -22,11 +22,12 @@
     }
 </style>
 
-<p class="text-lg text-primary mb-4">Your new GnosisSafe Address: <br>0xai7s6drtf8aubwl3diugasdo8fuga329</p>
-<button on:click={()=>navigateTo("GetTrust")}>copy link to clipboard</button>
+<h1 class="text-primary text-3xl font-bold pb-2 border-b border-gray-400">Unlock Your Safe</h1>
 
+<p class="text-xl text-primary mb-4">Your new GnosisSafe Address: 0xai7s6drtf8aubwl3diugasdo8fuga329</p>
 
 <div class="mt-4 mb-2 text-xl text-primary">Waiting For Trust</div>
+<p class="mb-5">Share your link to get trusted: <br> <span class="text-red-500">https://yourtrustlink.eth.link/#!/0x986dft7a8sodbfao8sdfga8sdofhbiasbdfiladsf</span></p>
 
 {#each notifications as n}
     <div class="card">{n.title} --- {n.type} --- {n.address}</div>
@@ -34,4 +35,4 @@
 
 <button class="bg-gray-200 text-gray-400" on:click={()=>navigateTo("Safe")}>create account</button>
 <br>
-<input value="https://yourtrustlink">
+
