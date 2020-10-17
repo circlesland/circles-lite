@@ -30,13 +30,6 @@ web3.setProvider(provider);
 
 
 const core = new CirclesCore(web3, {
-  // hubAddress: process.env.HUB_ADDRESS,
-  // proxyFactoryAddress: process.env.PROXY_FACTORY_ADDRESS,
-  // safeMasterAddress: process.env.SAFE_MASTER_ADDRESS,
-  // apiServiceEndpoint: process.env.API_SERVICE_ENDPOINT,
-  // graphNodeEndpoint: process.env.GRAPH_NODE_ENDPOINT,
-  // relayServiceEndpoint: process.env.RELAY_SERVICE_ENDPOOINT,
-  // subgraphName: process.env.SUBGRAPH_NAME,
   apiServiceEndpoint: process.env.API_SERVICE_EXTERNAL,
   graphNodeEndpoint: process.env.GRAPH_NODE_EXTERNAL,
   hubAddress: process.env.HUB_ADDRESS,
@@ -48,10 +41,10 @@ const core = new CirclesCore(web3, {
 
 export class CirclesWrapper {
   static storeAccount(account: Account) {
-    localStorage.setItem("account", JSON.stringify(account));
+    sessionStorage.setItem("account", JSON.stringify(account));
   }
   static restoreAccount(): Account | null {
-    const account = localStorage.getItem("account");
+    const account = sessionStorage.getItem("account");
     if (account)
       return JSON.parse(account);
     return null;
@@ -166,9 +159,31 @@ export class CirclesWrapper {
   }
 
   static async removeSafeOwner(safeOwner: Account, safeAddress: string, otherSafeOwnerAddress: string) {
+
     await core.safe.removeOwner(safeOwner, {
       safeAddress,
       ownerAddress: otherSafeOwnerAddress
     });
+  }
+
+  static async getBalance(safeOwner: Account, safeAddress: string): Promise<string> {
+    const balance = await core.token.getBalance(safeOwner, { safeAddress });
+    return (Number(balance.toString()) / 1000000000000000000).toFixed(2);
+  }
+
+  static async getSafeAddress(safeOwner: Account): Promise<string> {
+    const [safeAddress] = await core.safe.getAddresses(safeOwner, {
+      ownerAddress: safeOwner.address
+    });
+    console.log(safeAddress);
+    return safeAddress;
+  }
+
+  static async getNotifications(safeOwner: Account, safeAddress: string) {
+    // Get list of my activities
+    const { activities } = await core.activity.getNotifications(safeOwner, {
+      safeAddress,
+    });
+    return activities
   }
 }

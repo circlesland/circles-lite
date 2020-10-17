@@ -1,4 +1,4 @@
-schema: https://api.thegraph.com/subgraphs/name/circlesubi/circlesxdai
+schema: https://graph.circles.garden/subgraphs/name/CirclesUBI/circles-subgraph
 documents: ./*.graphql
 generates:
   generated.ts:

@@ -326,6 +326,42 @@ export enum OrderDirection {
   Desc = 'desc'
 }
 
+export type OrganizationSignup = Event & {
+  __typename?: 'OrganizationSignup';
+  id: Scalars['ID'];
+  safe: Scalars['String'];
+};
+
+export type OrganizationSignup_Filter = {
+  id?: Maybe<Scalars['ID']>;
+  id_not?: Maybe<Scalars['ID']>;
+  id_gt?: Maybe<Scalars['ID']>;
+  id_lt?: Maybe<Scalars['ID']>;
+  id_gte?: Maybe<Scalars['ID']>;
+  id_lte?: Maybe<Scalars['ID']>;
+  id_in?: Maybe<Array<Scalars['ID']>>;
+  id_not_in?: Maybe<Array<Scalars['ID']>>;
+  safe?: Maybe<Scalars['String']>;
+  safe_not?: Maybe<Scalars['String']>;
+  safe_gt?: Maybe<Scalars['String']>;
+  safe_lt?: Maybe<Scalars['String']>;
+  safe_gte?: Maybe<Scalars['String']>;
+  safe_lte?: Maybe<Scalars['String']>;
+  safe_in?: Maybe<Array<Scalars['String']>>;
+  safe_not_in?: Maybe<Array<Scalars['String']>>;
+  safe_contains?: Maybe<Scalars['String']>;
+  safe_not_contains?: Maybe<Scalars['String']>;
+  safe_starts_with?: Maybe<Scalars['String']>;
+  safe_not_starts_with?: Maybe<Scalars['String']>;
+  safe_ends_with?: Maybe<Scalars['String']>;
+  safe_not_ends_with?: Maybe<Scalars['String']>;
+};
+
+export enum OrganizationSignup_OrderBy {
+  Id = 'id',
+  Safe = 'safe'
+}
+
 export type OwnershipChange = Event & {
   __typename?: 'OwnershipChange';
   id: Scalars['ID'];
@@ -390,6 +426,8 @@ export type Query = {
   balances: Array<Balance>;
   signup?: Maybe<Signup>;
   signups: Array<Signup>;
+  organizationSignup?: Maybe<OrganizationSignup>;
+  organizationSignups: Array<OrganizationSignup>;
   trust?: Maybe<Trust>;
   trusts: Array<Trust>;
   trustChange?: Maybe<TrustChange>;
@@ -483,6 +521,22 @@ export type QuerySignupsArgs = {
   orderBy?: Maybe<Signup_OrderBy>;
   orderDirection?: Maybe<OrderDirection>;
   where?: Maybe<Signup_Filter>;
+  block?: Maybe<Block_Height>;
+};
+
+
+export type QueryOrganizationSignupArgs = {
+  id: Scalars['ID'];
+  block?: Maybe<Block_Height>;
+};
+
+
+export type QueryOrganizationSignupsArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  first?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<OrganizationSignup_OrderBy>;
+  orderDirection?: Maybe<OrderDirection>;
+  where?: Maybe<OrganizationSignup_Filter>;
   block?: Maybe<Block_Height>;
 };
 
@@ -602,6 +656,7 @@ export type Safe = {
   __typename?: 'Safe';
   id: Scalars['ID'];
   deployed?: Maybe<Scalars['Boolean']>;
+  organization?: Maybe<Scalars['Boolean']>;
   owners: Array<User>;
   outgoing: Array<Trust>;
   incoming: Array<Trust>;
@@ -658,6 +713,10 @@ export type Safe_Filter = {
   deployed_not?: Maybe<Scalars['Boolean']>;
   deployed_in?: Maybe<Array<Scalars['Boolean']>>;
   deployed_not_in?: Maybe<Array<Scalars['Boolean']>>;
+  organization?: Maybe<Scalars['Boolean']>;
+  organization_not?: Maybe<Scalars['Boolean']>;
+  organization_in?: Maybe<Array<Scalars['Boolean']>>;
+  organization_not_in?: Maybe<Array<Scalars['Boolean']>>;
   outgoingAddresses?: Maybe<Array<Scalars['String']>>;
   outgoingAddresses_not?: Maybe<Array<Scalars['String']>>;
   outgoingAddresses_contains?: Maybe<Array<Scalars['String']>>;
@@ -667,6 +726,7 @@ export type Safe_Filter = {
 export enum Safe_OrderBy {
   Id = 'id',
   Deployed = 'deployed',
+  Organization = 'organization',
   Owners = 'owners',
   Outgoing = 'outgoing',
   Incoming = 'incoming',
@@ -738,6 +798,8 @@ export type Subscription = {
   balances: Array<Balance>;
   signup?: Maybe<Signup>;
   signups: Array<Signup>;
+  organizationSignup?: Maybe<OrganizationSignup>;
+  organizationSignups: Array<OrganizationSignup>;
   trust?: Maybe<Trust>;
   trusts: Array<Trust>;
   trustChange?: Maybe<TrustChange>;
@@ -831,6 +893,22 @@ export type SubscriptionSignupsArgs = {
   orderBy?: Maybe<Signup_OrderBy>;
   orderDirection?: Maybe<OrderDirection>;
   where?: Maybe<Signup_Filter>;
+  block?: Maybe<Block_Height>;
+};
+
+
+export type SubscriptionOrganizationSignupArgs = {
+  id: Scalars['ID'];
+  block?: Maybe<Block_Height>;
+};
+
+
+export type SubscriptionOrganizationSignupsArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  first?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<OrganizationSignup_OrderBy>;
+  orderDirection?: Maybe<OrderDirection>;
+  where?: Maybe<OrganizationSignup_Filter>;
   block?: Maybe<Block_Height>;
 };
 
@@ -1324,6 +1402,23 @@ export type TransfersQuery = (
   )> }
 );
 
+export type SamuelsQueryVariables = Exact<{
+  safeAddress: Scalars['String'];
+}>;
+
+
+export type SamuelsQuery = (
+  { __typename?: 'Query' }
+  & { notifications: Array<(
+    { __typename?: 'Notification' }
+    & Pick<Notification, 'time'>
+    & { transfer?: Maybe<(
+      { __typename?: 'Transfer' }
+      & Pick<Transfer, 'from' | 'to' | 'amount'>
+    )> }
+  )> }
+);
+
 
 export const SafeAddressByOwnerDocument = gql`
     query safeAddressByOwner($address: ID!) {
@@ -1378,6 +1473,18 @@ export const TransfersDocument = gql`
   }
 }
     `;
+export const SamuelsDocument = gql`
+    query samuels($safeAddress: String!) {
+  notifications(orderBy: time, orderDirection: desc, where: {safe: $safeAddress}) {
+    time
+    transfer {
+      from
+      to
+      amount
+    }
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>;
 
@@ -1393,6 +1500,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     transfers(variables: TransfersQueryVariables): Promise<{ data?: TransfersQuery | undefined; extensions?: any; headers: Headers; status: number; errors?: GraphQLError[] | undefined; }> {
         return withWrapper(() => client.rawRequest<TransfersQuery>(print(TransfersDocument), variables));
+    },
+    samuels(variables: SamuelsQueryVariables): Promise<{ data?: SamuelsQuery | undefined; extensions?: any; headers: Headers; status: number; errors?: GraphQLError[] | undefined; }> {
+        return withWrapper(() => client.rawRequest<SamuelsQuery>(print(SamuelsDocument), variables));
     }
   };
 }

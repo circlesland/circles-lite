@@ -55,3 +55,20 @@ query transfers($safeAddress:String!) {
         }
     }
 }
+
+query samuels($safeAddress:String!) {
+    notifications(
+        orderBy: time
+        orderDirection: desc
+        where: {
+            safe: $safeAddress
+        }
+    ) {
+        time
+        transfer {
+            from
+            to
+            amount
+        }
+    }
+}
