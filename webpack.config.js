@@ -9,6 +9,7 @@ const prod = mode === 'production'
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const dotenv = require('dotenv').config({ path: __dirname + '/.env' })
 
 module.exports = {
   entry: {
@@ -76,7 +77,10 @@ module.exports = {
     }),
     new ExtractTextPlugin('[name].css', {
       disable: process.env.NODE_ENV === 'development',
-    })
+    }),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(dotenv.parsed),
+    }),
     // new BundleAnalyzerPlugin()
   ],
   node: {
