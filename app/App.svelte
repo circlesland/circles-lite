@@ -26,6 +26,7 @@
         // );
     }
 
+    page.base("/#!") 
     page("*", show);
     page({ popstate: true, hashbang:true });
 
@@ -58,7 +59,8 @@
 </style>
 
 <svelte:head>
+    <title>{current.title}</title>
     <link rel="stylesheet" href={css} />
 </svelte:head>
 <button on:click={()=>navigateTo("foo")}>to foo</button>
-<svelte:component this={current} />
+<svelte:component this={current.view} />
