@@ -58,6 +58,7 @@ query activities($safeAddress: String!) {
     orderDirection: desc
     where: { safe: $safeAddress }
   ) {
+    type
     time
     transfer {
       from

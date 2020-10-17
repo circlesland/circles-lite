@@ -2,16 +2,18 @@
     import { navigateTo } from "../../kernel/viewRegistry";
     import { CirclesWrapper } from "../../kernel/circles-protocol/circlesActions";
     import moment from "moment"
+    import { theGraphClient } from "../../kernel/circles-protocol/theGraph/theGraphClient";
+    import type { ActivitiesQuery } from "../../kernel/circles-protocol/theGraph/generated";
 
     let balance = "";
     let safeaddress = "";
-    let samuelsquery: SamuelsQuery;
+    let activitiesquery: ActivitiesQuery;
     async function f() {
         let account = CirclesWrapper.restoreAccount();
         safeaddress = await CirclesWrapper.getSafeAddress(account);
         balance = await CirclesWrapper.getBalance(account, safeaddress);
-        samuelsquery = (
-            await theGraphClient.samuels({
+        activitiesquery = (
+            await theGraphClient.activities({
                 safeAddress: safeaddress.toLowerCase(),
             })
         ).data;
@@ -19,8 +21,6 @@
 
     f();
 
-    import { theGraphClient } from "../../kernel/circles-protocol/theGraph/theGraphClient";
-    import type { SamuelsQuery } from "../../kernel/circles-protocol/theGraph/generated";
 </script>
 
 <style>
@@ -36,13 +36,14 @@
 </div>
 <div class="p-4 bg-gray-200">
     <div class="p-2 text-lg text-primary">Your Transactions</div>
-        {#if samuelsquery}
-            {#each samuelsquery.notifications as n}
+        {#if activitiesquery}
+            {#each activitiesquery.notifications as n}
             <div class="flex h-14 w-full text-primary bg-white border-b border-gray-200">
                 <div class="w-12 h-12 flex flex-col justify-center text-center">
                 <i class="text-2xl fas fa-arrow-down" />
                 </div>
                 <div class="text-base py-2 px-2 flex-1">
+                    {n.type}
                 <b class="text-primary font-title">{n.transfer.amount}</b>
                 <p class="text-xs -mt-2 text-gray-500">
                     {moment.unix(n.time).locale('en').fromNow()} from {n.transfer.from} to {n.transfer.to}
