@@ -1,9 +1,22 @@
 <script lang="ts">
+import { ViewRegistry } from "../kernel/viewRegistry";
+
+
     const local =
         window.location.hostname == "localhost" ||
         window.location.hostname == "127.0.0.1";
     const css = local ? "bundle.css" : "https://ipfs.io/ipns/bafzbeieojoxxxqmz6z6yt656msrjmpn6hh4ig2ppxrzxinhjm3njmiy5qq/webpack/bundle.js";
+
+    let page = ViewRegistry.getByName("Index");
 </script>
+
+
+
+<svelte:head>
+    <link rel="stylesheet" href={css} />
+</svelte:head>
+
+<svelte:component this={page}></svelte:component>
 
 <style global>
     @import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,300&family=Josefin+Sans:wght@700&family=Nunito+Sans:wght@400&display=swap");
@@ -27,9 +40,3 @@
         @apply font-sans;
     }
 </style>
-
-<svelte:head>
-    <link rel="stylesheet" href={css} />
-</svelte:head>
-
-works
