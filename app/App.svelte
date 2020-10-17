@@ -52,7 +52,10 @@
         left: 0;
         right: 0;
         bottom: 0;
-        @apply font-sans;
+        @apply font-sans m-6;
+    }
+    button {
+    @apply px-4 py-1 bg-primary rounded border border-gray-300 text-white
     }
 </style>
 
