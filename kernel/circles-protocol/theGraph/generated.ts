@@ -1402,12 +1402,12 @@ export type TransfersQuery = (
   )> }
 );
 
-export type SamuelsQueryVariables = Exact<{
+export type ActivitiesQueryVariables = Exact<{
   safeAddress: Scalars['String'];
 }>;
 
 
-export type SamuelsQuery = (
+export type ActivitiesQuery = (
   { __typename?: 'Query' }
   & { notifications: Array<(
     { __typename?: 'Notification' }
@@ -1473,8 +1473,8 @@ export const TransfersDocument = gql`
   }
 }
     `;
-export const SamuelsDocument = gql`
-    query samuels($safeAddress: String!) {
+export const ActivitiesDocument = gql`
+    query activities($safeAddress: String!) {
   notifications(orderBy: time, orderDirection: desc, where: {safe: $safeAddress}) {
     time
     transfer {
@@ -1501,8 +1501,8 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     transfers(variables: TransfersQueryVariables): Promise<{ data?: TransfersQuery | undefined; extensions?: any; headers: Headers; status: number; errors?: GraphQLError[] | undefined; }> {
         return withWrapper(() => client.rawRequest<TransfersQuery>(print(TransfersDocument), variables));
     },
-    samuels(variables: SamuelsQueryVariables): Promise<{ data?: SamuelsQuery | undefined; extensions?: any; headers: Headers; status: number; errors?: GraphQLError[] | undefined; }> {
-        return withWrapper(() => client.rawRequest<SamuelsQuery>(print(SamuelsDocument), variables));
+    activities(variables: ActivitiesQueryVariables): Promise<{ data?: ActivitiesQuery | undefined; extensions?: any; headers: Headers; status: number; errors?: GraphQLError[] | undefined; }> {
+        return withWrapper(() => client.rawRequest<ActivitiesQuery>(print(ActivitiesDocument), variables));
     }
   };
 }
