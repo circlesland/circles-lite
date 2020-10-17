@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { ViewRegistry } from "../kernel/viewRegistry";
+    import { ViewRegistry, navigateTo } from "../kernel/viewRegistry";
     import * as page from "page";
 
     const local =
@@ -30,9 +30,7 @@
     page("*", show);
     page({ popstate: true, hashbang:true });
 
-    function navigateTo(toPage:string){
-        page(`/${toPage}`);
-    }
+   
 </script>
 
 <style global>
@@ -62,5 +60,4 @@
     <title>{current.title}</title>
     <link rel="stylesheet" href={css} />
 </svelte:head>
-<button on:click={()=>navigateTo("foo")}>to foo</button>
 <svelte:component this={current.view} />
