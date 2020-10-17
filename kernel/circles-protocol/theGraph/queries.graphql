@@ -1,74 +1,68 @@
-query safeAddressByOwner($address:ID!) {
-    users(where: { id: $address }) {
+query safeAddressByOwner($address: ID!) {
+  users(where: { id: $address }) {
+    id
+    safes {
+      id
+    }
+  }
+}
+
+query safeDetails($safeAddress: ID!) {
+  safes(where: { id: $safeAddress }) {
+    id
+    incoming(orderBy: limit, orderDirection: desc) {
+      limit
+      limitPercentage
+      user {
         id
-        safes {
-            id
-        }
+      }
     }
-}
-
-query safeDetails($safeAddress:ID!) {
-    safes(where: {id: $safeAddress})
-    {
+    outgoing(orderBy: limit, orderDirection: desc) {
+      limit
+      limitPercentage
+      canSendTo {
         id
-        incoming(orderBy: limit, orderDirection: desc) {
-            limit
-            limitPercentage
-            user {
-                id
-            }
-        }
-        outgoing(orderBy: limit, orderDirection: desc) {
-            limit
-            limitPercentage
-            canSendTo {
-                id
-            }
-        }
-        balances(orderBy: amount, orderDirection: desc) {
-            id
-            amount
-            token {
-                id
-                owner {
-                    id
-                }
-            }
-        }
+      }
     }
+    balances(orderBy: amount, orderDirection: desc) {
+      id
+      amount
+      token {
+        id
+        owner {
+          id
+        }
+      }
+    }
+  }
 }
 
-query transfers($safeAddress:String!) {
-    notifications(
-        orderBy: time
-        orderDirection: desc
-        where: {
-            safe: $safeAddress
-            type: TRANSFER
-        }
-    ) {
-        time
-        transfer {
-            from
-            to
-            amount
-        }
+query transfers($safeAddress: String!) {
+  notifications(
+    orderBy: time
+    orderDirection: desc
+    where: { safe: $safeAddress, type: TRANSFER }
+  ) {
+    time
+    transfer {
+      from
+      to
+      amount
     }
+  }
 }
 
-query samuels($safeAddress:String!) {
-    notifications(
-        orderBy: time
-        orderDirection: desc
-        where: {
-            safe: $safeAddress
-        }
-    ) {
-        time
-        transfer {
-            from
-            to
-            amount
-        }
+query activities($safeAddress: String!) {
+  notifications(
+    orderBy: time
+    orderDirection: desc
+    where: { safe: $safeAddress }
+  ) {
+    time
+    transfer {
+      from
+      to
+      amount
     }
+  }
 }

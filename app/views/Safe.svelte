@@ -1,6 +1,8 @@
 <script lang="ts">
     import { navigateTo } from "../../kernel/viewRegistry";
     import { CirclesWrapper } from "../../kernel/circles-protocol/circlesActions";
+    import moment from "moment"
+
     let balance = "";
     let safeaddress = "";
     let samuelsquery: SamuelsQuery;
@@ -27,27 +29,36 @@
     }
 </style>
 
-<h1 class="text-primary text-3xl font-bold pb-2">Safe</h1>
-<p class="text-6xl  text-primary">Balance: {balance} ø</p>
-<p class="text-xl">Your Safe address: {safeaddress.toLowerCase()}</p>
+<main class="overflow-y-scroll">
+<div class="h-32 pt-6 bg-primary text-4xl font-bold text-center text-white">
+    <p>{balance} CRC</p>
+    <p class="text-xs text-gray-400">Safe: {safeaddress.toLowerCase()}</p>
+</div>
+<div class="p-4 bg-gray-200">
+    <div class="p-2 text-lg text-primary">Your Transactions</div>
+        {#if samuelsquery}
+            {#each samuelsquery.notifications as n}
+            <div class="flex h-14 w-full text-primary bg-white border-b border-gray-200">
+                <div class="w-12 h-12 flex flex-col justify-center text-center">
+                <i class="text-2xl fas fa-arrow-down" />
+                </div>
+                <div class="text-base py-2 px-2 flex-1">
+                <b class="text-primary font-title">{n.transfer.amount}</b>
+                <p class="text-xs -mt-2 text-gray-500">
+                    {moment.unix(n.time).locale('en').fromNow()} from {n.transfer.from} to {n.transfer.to}
+                </p>
+                </div>
+                <div class="font-title h-12 py-2 px-3 text-2xl font-bold text-secondary">
+                    <!-- {n.time} --> 
+                </div>
+            </div>
+            {/each}
+        {/if}
+    </div>
+</main>
 
-<div class="mt-2" />
-<button on:click={() => navigateTo('trustSomeone')}>trustSomeone</button>
+<footer>
+    <button on:click={() => navigateTo('trustSomeone')}>trustSomeone</button>
 <button on:click={() => navigateTo('getTrust')}>shareProfile</button>
-
-<div class="mt-4 mb-2 text-xl text-primary">Your Transactions</div>
-{#if samuelsquery}
-    {#each samuelsquery.notifications as n}
-        <div class="card">
-            {n.time}
-            ---
-            {#if n.transfer}
-                {n.transfer.from}
-                ---
-                {n.transfer.to}
-                ---
-                {n.transfer.amount}
-            {/if}
-        </div>
-    {/each}
-{/if}
+  
+</footer>
