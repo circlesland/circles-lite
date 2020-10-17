@@ -26,9 +26,9 @@ jobs:
         envkey_HUB_ADDRESS: ${{ secrets.HUB_ADDRESS }}
         envkey_PROXY_FACTORY_ADDRESS: ${{ secrets.PROXY_FACTORY_ADDRESS }}
         envkey_SAFE_MASTER_ADDRESS: ${{ secrets.SAFE_MASTER_ADDRESS }}
-        envkey_API_SERVICE_ENDPOINT: ${{ secrets.API_SERVICE_ENDPOINT }}
-        envkey_GRAPH_NODE_ENDPOINT: ${{ secrets.GRAPH_NODE_ENDPOINT }}
-        envkey_RELAY_SERVICE_ENDPOINT: ${{ secrets.RELAY_SERVICE_ENDPOINT }}
+        envkey_API_SERVICE_EXTERNAL: ${{ secrets.API_SERVICE_EXTERNAL }}
+        envkey_GRAPH_NODE_EXTERNAL: ${{ secrets.GRAPH_NODE_EXTERNAL }}
+        envkey_RELAY_SERVICE_EXTERNAL: ${{ secrets.RELAY_SERVICE_EXTERNAL }}
         envkey_SUBGRAPH_NAME: ${{ secrets.SUBGRAPH_NAME }}
         envkey_THE_GRAPH: ${{ secrets.THE_GRAPH }}
     - run: npm install
