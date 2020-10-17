@@ -58,8 +58,8 @@ module.exports = {
   plugins: [
     new ExtractTextPlugin('bundle.css', {
       disable: process.env.NODE_ENV === 'development',
-    }),
-    new BundleAnalyzerPlugin()
+    })
+    // new BundleAnalyzerPlugin()
   ],
   node: {
     fs: 'empty',
