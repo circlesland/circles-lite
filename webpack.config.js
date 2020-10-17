@@ -1,11 +1,14 @@
 const webpack = require('webpack')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
- 
+
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const path = require('path')
 
 const mode = process.env.NODE_ENV || 'development'
 const prod = mode === 'production'
+
+const path = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -20,7 +23,7 @@ module.exports = {
   },
   output: {
     path: __dirname + '/dist/webpack',
-    filename: '[name].js',
+    filename: '[name].[contenthash].js',
     chunkFilename: '[name].[id].js',
   },
   module: {
@@ -56,7 +59,12 @@ module.exports = {
   },
   mode: process.env.NODE_ENV,
   plugins: [
-    new ExtractTextPlugin('bundle.css', {
+    // new CleanWebpackPlugin(['dist/*']) for < v2 versions of CleanWebpackPlugin
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      title: 'Caching',
+    }),
+    new ExtractTextPlugin('[name].css', {
       disable: process.env.NODE_ENV === 'development',
     })
     // new BundleAnalyzerPlugin()
@@ -70,7 +78,7 @@ module.exports = {
   devServer: {
     compress: true,
     disableHostCheck: true,
-    contentBase: [path.join(__dirname, 'dist'),path.join(__dirname, 'dapps')],
+    contentBase: [path.join(__dirname, 'dist'), path.join(__dirname, 'dapps')],
     port: 5000
- }   
+  }
 }

@@ -36,7 +36,7 @@ jobs:
         secret: ${{ secrets.TEXTILE_ACCOUNT_SECRET }}
         bucket: 'circles-lite'
         thread: 'bafkwwtiq7xhtdsxp7sgolguubzwc2b54m7wcvmzwujbutwxhfptofzy'
-        path: 'dist'
+        path: 'dist/webpack'
     - run: echo "bucket - ${{ steps.bucket.outputs.key }}"
     - run: echo "ipfs - ${{ steps.bucket.outputs.ipfs }}"
     - run: echo "ipfs link - ${{ steps.bucket.outputs.ipfsUrl }}"
