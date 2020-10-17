@@ -42,7 +42,7 @@
     "webpack-dev-server": "^3.3.1"
   },
   "dependencies": {
-    "@circles/core": "^1.1.2",
+    "@circles/core": "^2.9.3",
     "@tsconfig/svelte": "^1.0.10",
     "bip39": "^3.0.2",
     "bn.js": "^5.1.3",

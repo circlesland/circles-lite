@@ -2,7 +2,7 @@ import { mnemonicToEntropy } from "bip39";
 import Web3 from "web3";
 import type { Account } from "web3-core";
 
-import   CirclesCore from '@circles/core';
+import CirclesCore from '@circles/core';
 import BN from "bn.js";
 
 const ETHEREUM_NODE_WS = "wss://xdai.poanetwork.dev/wss";
@@ -30,16 +30,32 @@ web3.setProvider(provider);
 
 
 const core = new CirclesCore(web3, {
+  // hubAddress: process.env.HUB_ADDRESS,
+  // proxyFactoryAddress: process.env.PROXY_FACTORY_ADDRESS,
+  // safeMasterAddress: process.env.SAFE_MASTER_ADDRESS,
+  // apiServiceEndpoint: process.env.API_SERVICE_ENDPOINT,
+  // graphNodeEndpoint: process.env.GRAPH_NODE_ENDPOINT,
+  // relayServiceEndpoint: process.env.RELAY_SERVICE_ENDPOOINT,
+  // subgraphName: process.env.SUBGRAPH_NAME,
+  apiServiceEndpoint: process.env.API_SERVICE_EXTERNAL,
+  graphNodeEndpoint: process.env.GRAPH_NODE_EXTERNAL,
   hubAddress: process.env.HUB_ADDRESS,
   proxyFactoryAddress: process.env.PROXY_FACTORY_ADDRESS,
-  safeMasterAddress: process.env.SAFE_MASTER_ADDRESS,
-  apiServiceEndpoint: process.env.API_SERVICE_ENDPOINT,
-  graphNodeEndpoint: process.env.GRAPH_NODE_ENDPOINT,
-  relayServiceEndpoint: process.env.RELAY_SERVICE_ENDPOOINT,
+  relayServiceEndpoint: process.env.RELAY_SERVICE_EXTERNAL,
+  safeMasterAddress: process.env.SAFE_ADDRESS,
   subgraphName: process.env.SUBGRAPH_NAME,
 });
 
 export class CirclesWrapper {
+  static storeAccount(account: Account) {
+    localStorage.setItem("account", JSON.stringify(account));
+  }
+  static restoreAccount(): Account | null {
+    const account = localStorage.getItem("account");
+    if (account)
+      return JSON.parse(account);
+    return null;
+  }
   static safeOwnerFromKeyphrase(keyPhrase: string): Account {
     const restoredKey = mnemonicToEntropy(keyPhrase);
     const safeOwner = web3.eth.accounts.privateKeyToAccount(restoredKey);

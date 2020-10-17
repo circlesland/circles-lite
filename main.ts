@@ -1,5 +1,4 @@
 import App from "./app/App.svelte";
-// import { CirclesWrapper } from "./kernel/circles-protocol/circlesActions";
 declare global {
     interface Window {
     }
