@@ -8,7 +8,7 @@ on:
       - main
 
 jobs:
-  build-and-deploy circles lite:
+  build-and-deploy-circles-lite:
     runs-on: ubuntu-latest
     strategy:
       matrix:
