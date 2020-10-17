@@ -69,6 +69,7 @@ module.exports = {
             ${htmlWebpackPlugin.tags.headTags}
           </head>
           <body>
+            ${htmlWebpackPlugin.tags.bodyTags}
           </body>
         </html>
       `
