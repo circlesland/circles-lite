@@ -23,16 +23,14 @@ jobs:
     - name: Make envfile
       uses: SpicyPizza/create-envfile@v1
       with:
-        HUB_ADDRESS: ${{ secrets.HUB_ADDRESS }},
-        PROXY_FACTORY_ADDRESS: ${{ secrets.PROXY_FACTORY_ADDRESS }},
-        SAFE_MASTER_ADDRESS: ${{ secrets.SAFE_MASTER_ADDRESS }},
-        API_SERVICE_ENDPOINT: ${{ secrets.API_SERVICE_ENDPOINT }},
-        GRAPH_NODE_ENDPOINT: ${{ secrets.GRAPH_NODE_ENDPOINT }},
-        RELAY_SERVICE_ENDPOINT: ${{ secrets.RELAY_SERVICE_ENDPOINT }},
-        SUBGRAPH_NAME: ${{ secrets.SUBGRAPH_NAME }},
-        THE_GRAPH: ${{ secrets.THE_GRAPH }},
-        
-    - run: tail .env
+        envkey_HUB_ADDRESS: ${{ secrets.HUB_ADDRESS }}
+        envkey_PROXY_FACTORY_ADDRESS: ${{ secrets.PROXY_FACTORY_ADDRESS }}
+        envkey_SAFE_MASTER_ADDRESS: ${{ secrets.SAFE_MASTER_ADDRESS }}
+        envkey_API_SERVICE_ENDPOINT: ${{ secrets.API_SERVICE_ENDPOINT }}
+        envkey_GRAPH_NODE_ENDPOINT: ${{ secrets.GRAPH_NODE_ENDPOINT }}
+        envkey_RELAY_SERVICE_ENDPOINT: ${{ secrets.RELAY_SERVICE_ENDPOINT }}
+        envkey_SUBGRAPH_NAME: ${{ secrets.SUBGRAPH_NAME }}
+        envkey_THE_GRAPH: ${{ secrets.THE_GRAPH }}
     - run: npm install
     - run: npm run build --if-present
       env:
