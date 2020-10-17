@@ -42,7 +42,7 @@ const core = new CirclesCore(web3, {
   hubAddress: process.env.HUB_ADDRESS,
   proxyFactoryAddress: process.env.PROXY_FACTORY_ADDRESS,
   relayServiceEndpoint: process.env.RELAY_SERVICE_EXTERNAL,
-  safeMasterAddress: process.env.SAFE_ADDRESS,
+  safeMasterAddress: process.env.SAFE_MASTER_ADDRESS,
   subgraphName: process.env.SUBGRAPH_NAME,
 });
 
