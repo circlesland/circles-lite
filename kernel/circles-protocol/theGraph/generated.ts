@@ -1411,7 +1411,7 @@ export type ActivitiesQuery = (
   { __typename?: 'Query' }
   & { notifications: Array<(
     { __typename?: 'Notification' }
-    & Pick<Notification, 'time'>
+    & Pick<Notification, 'type' | 'time'>
     & { transfer?: Maybe<(
       { __typename?: 'Transfer' }
       & Pick<Transfer, 'from' | 'to' | 'amount'>
@@ -1476,6 +1476,7 @@ export const TransfersDocument = gql`
 export const ActivitiesDocument = gql`
     query activities($safeAddress: String!) {
   notifications(orderBy: time, orderDirection: desc, where: {safe: $safeAddress}) {
+    type
     time
     transfer {
       from
