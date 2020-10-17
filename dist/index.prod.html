@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
 	<title>circles lite client</title>
-	<script defer src="https://hub.textile.io/ipns/bafzbeieojoxxxqmz6z6yt656msrjmpn6hh4ig2ppxrzxinhjm3njmiy5qq/webpack/bundle.js"></script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function (event) {
+			const s = document.createElement("script");
+			s.setAttribute("src", `https://${window.location.hostname}/ipns/bafzbeieojoxxxqmz6z6yt656msrjmpn6hh4ig2ppxrzxinhjm3njmiy5qq/webpack/bundle.js`);
+			document.body.appendChild(s);
+		});
+	</script>
 </head>
+
 <body></body>
+
 </html>
