@@ -1,103 +1,107 @@
 <script lang="ts">
-    import { ViewRegistry, navigateTo } from "../kernel/viewRegistry";
-    import * as page from "page";
+  import { ViewRegistry, navigateTo } from "../kernel/viewRegistry";
+  import * as page from "page";
 
-    const local =
-        window.location.hostname == "localhost" ||
-        window.location.hostname == "127.0.0.1";
-    // const css = local
-    //     ? "bundle.css"
-    //     : "https://ipfs.io/ipns/bafzbeieojoxxxqmz6z6yt656msrjmpn6hh4ig2ppxrzxinhjm3njmiy5qq/webpack/bundle.js";
+  const local =
+    window.location.hostname == "localhost" ||
+    window.location.hostname == "127.0.0.1";
+  // const css = local
+  //     ? "bundle.css"
+  //     : "https://ipfs.io/ipns/bafzbeieojoxxxqmz6z6yt656msrjmpn6hh4ig2ppxrzxinhjm3njmiy5qq/webpack/bundle.js";
 
-    let current = ViewRegistry.getByName("Index");
+  let current = ViewRegistry.getByName("Index");
 
-    async function show(ctx) {
-        console.log("CONTEXT", ctx);
+  async function show(ctx) {
+    console.log("CONTEXT", ctx);
 
-        current = ViewRegistry.getByName(ctx.path.replace(/\//g, ""));
-        // let page = ctx.query["page"];
-        // if (!page) {
-        //     page = "index";
-        // }
-        // page += ".json";
-        // viewDocument = await xfetch(
-        //     "bafzbeidz3eazquyorhjdiosdgbc5j73yz5omnyqrasuz7pertimlmz7e5y",
-        //     page
-        // );
-    }
-    let base = local
-        ? "/#!/"
-        : "/ipns/bafzbeieojoxxxqmz6z6yt656msrjmpn6hh4ig2ppxrzxinhjm3njmiy5qq/#!/";
-    page.base(base);
-    page("*", show);
-    page({ popstate: true, hashbang: true });
+    current = ViewRegistry.getByName(ctx.path.replace(/\//g, ""));
+    // let page = ctx.query["page"];
+    // if (!page) {
+    //     page = "index";
+    // }
+    // page += ".json";
+    // viewDocument = await xfetch(
+    //     "bafzbeidz3eazquyorhjdiosdgbc5j73yz5omnyqrasuz7pertimlmz7e5y",
+    //     page
+    // );
+  }
+  let base = local
+    ? "/#!/"
+    : "/ipns/bafzbeieojoxxxqmz6z6yt656msrjmpn6hh4ig2ppxrzxinhjm3njmiy5qq/#!/";
+  page.base(base);
+  page("*", show);
+  page({ popstate: true, hashbang: true });
 </script>
 
 <style global>
-    @import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,300&family=Josefin+Sans:wght@700&family=Nunito+Sans:wght@400&display=swap");
-    @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap");
-    @import url("https://fonts.googleapis.com/css2?family=Aclonica&display=swap");
+  @import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,300&family=Josefin+Sans:wght@700&family=Nunito+Sans:wght@400&display=swap");
+  @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap");
+  @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap");
 
-    @tailwind base;
-    @tailwind utilities;
-    @tailwind components;
+  @tailwind base;
+  @tailwind utilities;
+  @tailwind components;
 
-    html,
-    body {
-        height: 100%;
-        overflow: hidden;
-        width: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        @apply font-sans;
-    }
-    button {
-    @apply px-4 py-1 bg-primary rounded border border-gray-300 text-white
-    }
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    @apply font-sans;
+  }
+  button {
+    @apply px-4 py-2 bg-primary rounded border border-gray-300 text-white;
+  }
 
-    @media screen and (min-width: 600px) {
-        .wrap {
-        height: 95%;
-        }
+  @media screen and (min-width: 600px) {
+    .wrap {
+      height: 95%;
     }
-    @media screen and (min-width: 1024px) {
-        .wrap {
-        height: 85%;
-        }
+  }
+  @media screen and (min-width: 1024px) {
+    .wrap {
+      height: 85%;
     }
-    @media screen and (min-width: 1600px) {
-        .wrap {
-        height: 75%;
-        }
+  }
+  @media screen and (min-width: 1600px) {
+    .wrap {
+      height: 75%;
     }
-    .grid {
-        @apply h-full w-full;
-        grid-template-areas:
-        "header"
-        "main"
-        "footer";
-        grid-template-rows: auto 1fr auto;
-        grid-template-columns: 1fr;
-    }
-    header {
-        grid-area: header;
-    }
-    main {
-        grid-area: main;
-    }
-    footer {
-        grid-area: footer;
-    }
+  }
+  .grid {
+    @apply h-full w-full;
+    grid-template-areas:
+      "header"
+      "main"
+      "footer";
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr;
+  }
+  header {
+    grid-area: header;
+  }
+  main {
+    grid-area: main;
+  }
+  footer {
+    grid-area: footer;
+    @apply border-t border-gray-300;
+  }
 </style>
 
 <svelte:head>
-    <title>{current.title}</title>
-    <link rel="stylesheet" href="bundle.css" />
+  <title>{current.title}</title>
+  <link rel="stylesheet" href="bundle.css" />
 </svelte:head>
 
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
+  rel="stylesheet" />
 
 <div
   class=" bg-white h-screen flex flex-col items-center justify-center bg-grey-lighter bg-cover bg-center"
@@ -105,21 +109,30 @@
   <div
     class="wrap shadow-2xl border border-gray-300 bg-white rounded-lg md:m-12 w-full h-full max-w-md justify-center">
     <div class="grid">
-        <header class="flex flex-col justify-center bg-grey-lighter border-b border-gray-300">
-            <p class="p-4 text-xs text-primary">
-                Please note: The Circles Lite Wallet is early alpha hacked in one day, use at your own risk! 
-                <a href="https://github.com/omoearth/circles-lite/issues" class="text-action font-bold">Github</a> -
-                <a href="https://twitter.com/OmoEarth" class="text-action font-bold">Twitter</a> -
-                <a href="https://discord.gg/Rbhy4j9" class="text-action font-bold">Discord</a>
-            </p>    
-        </header>
-            <svelte:component this={current.view} />
-        </div>
+      <header
+        class="flex flex-col justify-center bg-grey-lighter border-b border-gray-300">
+        <p class="p-4 text-xs text-primary">
+          Please note: Omo Earth is in early alpha test mode, use at your own
+          risk! Let us know about any feedback:
+          <a
+            href="https://github.com/omoearth/circles-lite/issues"
+            class="text-action font-bold">Github</a>
+          -
+          <a
+            href="https://twitter.com/OmoEarth"
+            class="text-action font-bold">Twitter</a>
+          -
+          <a
+            href="https://discord.gg/Rbhy4j9"
+            class="text-action font-bold">Discord</a>
+        </p>
+      </header>
+      <svelte:component this={current.view} />
     </div>
+  </div>
 </div>
 
-
-      <!-- <header
+<!-- <header
         class="flex flex-col justify-center bg-grey-lighter border-b border-gray-300">
         <div class="text-primary font-bold uppercase text-center">Login</div>
       </header>
